@@ -162,6 +162,16 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */
+/* changelog: Renamed the EVENT_USB_Device_UnhandledControlRequest() event to EVENT_USB_Device
+_ControlRequest() as it is now fired before the library
+-  *      request handlers, not afterwards
+
+The \c EVENT_USB_Device_UnhandledControlRequest() event is now named \ref EVENT_
+USB_Device_ControlRequest() and fires before (not after)
+- *      the internal library event handlers. Existing code should rename the ev
+ent handlers in the user application to match the new event
+- *      name, and should ensure that the new execution order does not affect th
+e application's operation. */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
